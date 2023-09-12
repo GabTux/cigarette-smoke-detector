@@ -1,0 +1,513 @@
+[
+    {
+        "id": "71d6fc5ddbf14ef4",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "67d675aa89238dd2",
+        "type": "mqtt-broker",
+        "name": "MQTT Docker",
+        "broker": "192.168.0.131",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "17ab521b03d53b30",
+        "type": "influxdb",
+        "hostname": "192.168.0.131",
+        "port": "8086",
+        "protocol": "http",
+        "database": "kitchen_data",
+        "name": "home_data",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x",
+        "url": "http://localhost:8086",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "d180c10c4f8e7df0",
+        "type": "mqtt in",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "/kitchen/temperature",
+        "topic": "/kitchen/temperature",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "67d675aa89238dd2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 310,
+        "y": 360,
+        "wires": [
+            [
+                "d88a924ab9f6dd82"
+            ]
+        ]
+    },
+    {
+        "id": "d88a924ab9f6dd82",
+        "type": "change",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"temperature\": msg.payload.value\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 360,
+        "wires": [
+            [
+                "4273b4b7b2718f41"
+            ]
+        ]
+    },
+    {
+        "id": "4273b4b7b2718f41",
+        "type": "influxdb out",
+        "z": "71d6fc5ddbf14ef4",
+        "influxdb": "17ab521b03d53b30",
+        "name": "",
+        "measurement": "temperature_data",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 1000,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "33e109c7cf1c05a1",
+        "type": "mqtt in",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "/kitchen/light",
+        "topic": "/kitchen/light",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "67d675aa89238dd2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
+        "y": 440,
+        "wires": [
+            [
+                "59e22fafecfc5686"
+            ]
+        ]
+    },
+    {
+        "id": "c026ad4b72c595a1",
+        "type": "influxdb out",
+        "z": "71d6fc5ddbf14ef4",
+        "influxdb": "17ab521b03d53b30",
+        "name": "",
+        "measurement": "light_data",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 980,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "59e22fafecfc5686",
+        "type": "change",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"light\": msg.payload.value\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 440,
+        "wires": [
+            [
+                "c026ad4b72c595a1"
+            ]
+        ]
+    },
+    {
+        "id": "6be682ed935937f5",
+        "type": "mqtt in",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "/bedroom/temperature",
+        "topic": "/bedroom/temperature",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "67d675aa89238dd2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 320,
+        "y": 520,
+        "wires": [
+            [
+                "274b6aaa93e89b29"
+            ]
+        ]
+    },
+    {
+        "id": "274b6aaa93e89b29",
+        "type": "change",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"temperature\": msg.payload.value\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 520,
+        "wires": [
+            [
+                "e402f825035263bf"
+            ]
+        ]
+    },
+    {
+        "id": "e402f825035263bf",
+        "type": "influxdb out",
+        "z": "71d6fc5ddbf14ef4",
+        "influxdb": "17ab521b03d53b30",
+        "name": "",
+        "measurement": "bed_temperature_data",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 1020,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "3748569ccd8f3adb",
+        "type": "mqtt in",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "/out/dht",
+        "topic": "/out/dht",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "67d675aa89238dd2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 600,
+        "wires": [
+            [
+                "c8c2807c55b6d0e9"
+            ]
+        ]
+    },
+    {
+        "id": "c8c2807c55b6d0e9",
+        "type": "change",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"temperature\": msg.payload.temp,\t    \"humidity\": msg.payload.hum\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 600,
+        "wires": [
+            [
+                "e06c26913a24450a"
+            ]
+        ]
+    },
+    {
+        "id": "e06c26913a24450a",
+        "type": "influxdb out",
+        "z": "71d6fc5ddbf14ef4",
+        "influxdb": "17ab521b03d53b30",
+        "name": "",
+        "measurement": "dht_data",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 980,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "8dcfced6a6fbaf31",
+        "type": "mqtt in",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "/out/gas",
+        "topic": "/out/gas",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "67d675aa89238dd2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 660,
+        "wires": [
+            [
+                "61f3aec62054b15a"
+            ]
+        ]
+    },
+    {
+        "id": "829478ea71f1a608",
+        "type": "mqtt in",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "/out/dust",
+        "topic": "/out/dust",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "67d675aa89238dd2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 280,
+        "y": 720,
+        "wires": [
+            [
+                "e9ecc8fa8418547f"
+            ]
+        ]
+    },
+    {
+        "id": "61f3aec62054b15a",
+        "type": "change",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"gas\": msg.payload.value\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 660,
+        "wires": [
+            [
+                "ac9e7de6f3f61053"
+            ]
+        ]
+    },
+    {
+        "id": "e9ecc8fa8418547f",
+        "type": "change",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"dust\": msg.payload.value\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 720,
+        "wires": [
+            [
+                "d3cc92c97f608d44"
+            ]
+        ]
+    },
+    {
+        "id": "ac9e7de6f3f61053",
+        "type": "influxdb out",
+        "z": "71d6fc5ddbf14ef4",
+        "influxdb": "17ab521b03d53b30",
+        "name": "",
+        "measurement": "gas_data",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 980,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "d3cc92c97f608d44",
+        "type": "influxdb out",
+        "z": "71d6fc5ddbf14ef4",
+        "influxdb": "17ab521b03d53b30",
+        "name": "",
+        "measurement": "dust_data",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 980,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "658a1b1dfcde98fa",
+        "type": "change",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"uv\": msg.payload.value\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 780,
+        "wires": [
+            [
+                "c95b33d8f9f3b5ce"
+            ]
+        ]
+    },
+    {
+        "id": "31e866dd6a04a69b",
+        "type": "mqtt in",
+        "z": "71d6fc5ddbf14ef4",
+        "name": "/out/uv",
+        "topic": "/out/uv",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "67d675aa89238dd2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 780,
+        "wires": [
+            [
+                "658a1b1dfcde98fa"
+            ]
+        ]
+    },
+    {
+        "id": "c95b33d8f9f3b5ce",
+        "type": "influxdb out",
+        "z": "71d6fc5ddbf14ef4",
+        "influxdb": "17ab521b03d53b30",
+        "name": "",
+        "measurement": "uv_data",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 970,
+        "y": 780,
+        "wires": []
+    }
+]
